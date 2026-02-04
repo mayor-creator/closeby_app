@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+	NotoSansDisplay_400Regular,
+	NotoSansDisplay_500Medium,
+	NotoSansDisplay_600SemiBold,
+	NotoSansDisplay_700Bold,
+	useFonts,
+} from "@expo-google-fonts/noto-sans-display";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	const [fontsLoaded] = useFonts({
+		NotoSansDisplay_400Regular,
+		NotoSansDisplay_500Medium,
+		NotoSansDisplay_600SemiBold,
+		NotoSansDisplay_700Bold,
+	});
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	if (!fontsLoaded) return null;
+
+	return (
+		<View>
+			<StatusBar style="auto" />
+		</View>
+	);
+}
