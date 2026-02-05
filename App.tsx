@@ -5,8 +5,12 @@ import {
 	NotoSansDisplay_700Bold,
 	useFonts,
 } from "@expo-google-fonts/noto-sans-display";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { EventBottomTabs } from "./navigation/bottomTabs/BottomTabs";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -19,8 +23,15 @@ export default function App() {
 	if (!fontsLoaded) return null;
 
 	return (
-		<View>
+		<NavigationContainer>
 			<StatusBar style="auto" />
-		</View>
+			<Stack.Navigator>
+				<Stack.Screen
+					name="Home"
+					component={EventBottomTabs}
+					options={{ headerShown: false }}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }
