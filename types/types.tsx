@@ -17,3 +17,8 @@ export interface Category {
 export interface EventsData {
 	categories: Category[];
 }
+
+export interface EventWithCategory extends Event {
+	categoryId: string;
+	categoryName: string;
+}
