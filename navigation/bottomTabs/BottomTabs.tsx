@@ -30,7 +30,7 @@ export const EventBottomTabs = () => {
 				name="EventHome"
 				component={EventHome}
 				options={{
-					title: "Event Home",
+					title: "Events",
 					tabBarLabel: "Home",
 					tabBarIcon: ({ color, size, focused }) => (
 						<Ionicons
