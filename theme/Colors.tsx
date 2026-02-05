@@ -43,7 +43,7 @@ export const COLORS = {
 	muted: "#B7A99A", // Skeletons, placeholders, disabled icons ONLY
 
 	/*
-  textPrimary → anything users must rea
+  textPrimary → anything users must read
   textSecondary → dates, locations, categories
   accent → icons, chips, highlights (avoid paragraph text)
   muted → never text
