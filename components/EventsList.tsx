@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useState } from "react";
 import {
 	FlatList,
 	type ListRenderItem,
@@ -16,6 +17,8 @@ import type { EventWithCategory, RootStackParamList } from "../types/types";
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 export const EventsList = () => {
+	const [favoriteEventsId, setFavoriteEventsId] = useState<string[]>([]);
+
 	const navigation = useNavigation<NavigationProps>();
 
 	//create an empty array
@@ -34,9 +37,21 @@ export const EventsList = () => {
 		});
 	});
 
+	// if event is already favorite remove it otherwise add it
+	const toggleFavorite = (eventId: string) => {
+		setFavoriteEventsId((prev) => {
+			if (prev.includes(eventId)) {
+				return prev.filter((id) => id !== eventId);
+			}
+			return [...prev, eventId];
+		});
+	};
+
 	const renderEventsListItems: ListRenderItem<EventWithCategory> = ({
 		item,
 	}) => {
+		const isFavorite = favoriteEventsId.includes(item.eventId);
+
 		return (
 			<View style={styles.card}>
 				<Pressable
@@ -61,12 +76,17 @@ export const EventsList = () => {
 				</Pressable>
 
 				<Pressable
+					onPress={() => toggleFavorite(item.eventId)}
 					style={({ pressed }) => [
 						styles.favoriteButton,
 						pressed && styles.favoriteButtonPressed,
 					]}
 				>
-					<Ionicons name="heart-outline" size={24} color={COLORS.favorite} />
+					<Ionicons
+						name={isFavorite ? "heart" : "heart-outline"}
+						size={24}
+						color={COLORS.favorite}
+					/>
 				</Pressable>
 			</View>
 		);
