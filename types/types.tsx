@@ -1,3 +1,30 @@
+export type RootStackParamList = {
+	Home: undefined;
+	EventsDetails: {
+		eventId: string;
+		title: string;
+		description: string;
+		date: string;
+		time: string;
+		location: string;
+		isFree: boolean;
+	};
+};
+
+export interface EventsDetailsRouteParams {
+	eventId: string;
+	title: string;
+	description: string;
+	date: string;
+	time: string;
+	location: string;
+	isFree: boolean;
+}
+
+export type EventsDetailsProps = {
+	route: { params: EventsDetailsRouteParams };
+};
+
 export interface Event {
 	eventId: string;
 	title: string;
