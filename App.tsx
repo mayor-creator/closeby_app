@@ -9,8 +9,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { EventBottomTabs } from "./navigation/bottomTabs/BottomTabs";
+import { EventDetailsScreen } from "./screens/EventDetailsScreen";
+import { COLORS } from "./theme/Colors";
+import type { RootStackParamList } from "./types/types";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -25,11 +28,21 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<StatusBar style="auto" />
-			<Stack.Navigator>
+			<Stack.Navigator
+				screenOptions={{
+					headerStyle: { backgroundColor: COLORS.card },
+					headerTintColor: COLORS.brandPrimary,
+				}}
+			>
 				<Stack.Screen
 					name="Home"
 					component={EventBottomTabs}
-					options={{ headerShown: false }}
+					options={{ headerShown: false, title: "" }}
+				/>
+				<Stack.Screen
+					name="EventsDetails"
+					component={EventDetailsScreen}
+					options={{ title: "Event Details" }}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
