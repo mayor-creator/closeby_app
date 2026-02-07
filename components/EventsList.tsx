@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { use } from "react";
 import {
 	FlatList,
 	type ListRenderItem,
@@ -10,6 +10,7 @@ import {
 	Text,
 	View,
 } from "react-native";
+import { EventContext } from "../context/EventContext";
 import { eventData } from "../data/eventData";
 import { COLORS } from "../theme/Colors";
 import type { EventWithCategory, RootStackParamList } from "../types/types";
@@ -17,7 +18,7 @@ import type { EventWithCategory, RootStackParamList } from "../types/types";
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 export const EventsList = () => {
-	const [favoriteEventsId, setFavoriteEventsId] = useState<string[]>([]);
+	const { favoriteEventsId, toggleFavorite } = use(EventContext);
 
 	const navigation = useNavigation<NavigationProps>();
 
@@ -36,16 +37,6 @@ export const EventsList = () => {
 			});
 		});
 	});
-
-	// if event is already favorite remove it otherwise add it
-	const toggleFavorite = (eventId: string) => {
-		setFavoriteEventsId((prev) => {
-			if (prev.includes(eventId)) {
-				return prev.filter((id) => id !== eventId);
-			}
-			return [...prev, eventId];
-		});
-	};
 
 	const renderEventsListItems: ListRenderItem<EventWithCategory> = ({
 		item,
