@@ -1,8 +1,9 @@
 import { use } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { EventItem } from "../components/EventItem";
 import { EventContext } from "../context/EventContext";
 import { eventData } from "../data/eventData";
+import { COLORS } from "../theme/Colors";
 
 export const EventFavorite = () => {
 	const { favoriteEventsId } = use(EventContext);
@@ -19,7 +20,7 @@ export const EventFavorite = () => {
 	}
 
 	return (
-		<View>
+		<View style={styles.container}>
 			<FlatList
 				data={favoriteEvents}
 				keyExtractor={(item) => item.eventId}
@@ -28,3 +29,11 @@ export const EventFavorite = () => {
 		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: COLORS.background,
+		paddingHorizontal: 24,
+	},
+});
