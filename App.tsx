@@ -34,6 +34,7 @@ export default function App() {
 					screenOptions={{
 						headerStyle: { backgroundColor: COLORS.card },
 						headerTintColor: COLORS.brandPrimary,
+						animation: "fade_from_bottom",
 					}}
 				>
 					<Stack.Screen

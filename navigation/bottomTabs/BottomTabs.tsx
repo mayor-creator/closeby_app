@@ -24,6 +24,7 @@ export const EventBottomTabs = () => {
 					fontSize: 12,
 					fontFamily: "NotoSansDisplay_400Regular",
 				},
+				animation: "shift",
 			}}
 		>
 			<Tab.Screen
