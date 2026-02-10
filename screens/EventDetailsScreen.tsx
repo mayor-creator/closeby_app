@@ -1,5 +1,6 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { EventDetails } from "../components/EventDetails";
+import { COLORS } from "../theme/Colors";
 import type { EventsDetailsProps } from "../types/types";
 
 export const EventDetailsScreen = ({ route }: EventsDetailsProps) => {
@@ -7,7 +8,7 @@ export const EventDetailsScreen = ({ route }: EventsDetailsProps) => {
 		route.params;
 
 	return (
-		<View>
+		<View style={styles.container}>
 			<EventDetails
 				eventId={eventId}
 				title={title}
@@ -20,3 +21,11 @@ export const EventDetailsScreen = ({ route }: EventsDetailsProps) => {
 		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: COLORS.background,
+		padding: 24,
+	},
+});
