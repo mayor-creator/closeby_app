@@ -16,7 +16,11 @@ export const EventFavorite = () => {
 	);
 
 	if (favoriteEvents.length === 0) {
-		return <Text>No favorites yet</Text>;
+		return (
+			<View style={styles.container}>
+				<Text style={styles.noFavoriteText}>No favorites yet</Text>
+			</View>
+		);
 	}
 
 	return (
@@ -35,5 +39,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: COLORS.background,
 		paddingHorizontal: 24,
+	},
+	noFavoriteText: {
+		textAlign: "center",
+		fontSize: 24,
+		paddingTop: 24,
 	},
 });
