@@ -12,11 +12,14 @@ type EventCardProps = {
 	time?: string;
 	location?: string;
 	categoryName?: string;
-	onPress: () => void;
-	favoriteOnPress: () => void;
-	name: React.ComponentProps<typeof Ionicons>["name"];
-	size: number;
-	color: string;
+	isFree?: boolean;
+
+	onPress?: () => void;
+	favoriteOnPress?: () => void;
+
+	name?: React.ComponentProps<typeof Ionicons>["name"];
+	size?: number;
+	color?: string;
 };
 
 export const EventCard = ({
@@ -29,17 +32,36 @@ export const EventCard = ({
 	size,
 	color,
 	categoryName,
+	isFree,
 	onPress,
 	favoriteOnPress,
 }: EventCardProps) => {
 	return (
 		<View style={styles.card}>
-			<Pressable
-				onPress={onPress}
-				style={({ pressed }) => pressed && styles.pressed}
-				accessibilityRole="button"
-				accessibilityLabel={`Open event ${title}`}
-			>
+			{onPress ? (
+				<Pressable
+					onPress={onPress}
+					style={({ pressed }) => pressed && styles.pressed}
+					accessibilityRole="button"
+					accessibilityLabel={`Open event ${title}`}
+				>
+					<View style={styles.eventContent}>
+						<Text style={TYPOGRAPHY.title}>{title}</Text>
+						{description && <Text style={TYPOGRAPHY.body}>{description}</Text>}
+						{date && <Text style={TYPOGRAPHY.meta}>{date}</Text>}
+						{time && <Text style={TYPOGRAPHY.meta}>{time}</Text>}
+						{categoryName && (
+							<Text style={TYPOGRAPHY.meta}>{categoryName}</Text>
+						)}
+						{location && <Text style={TYPOGRAPHY.meta}>{location}</Text>}
+						{typeof isFree === "boolean" && (
+							<Text style={TYPOGRAPHY.meta}>
+								{isFree ? "Price $0.00" : "Price $20.00"}
+							</Text>
+						)}
+					</View>
+				</Pressable>
+			) : (
 				<View style={styles.eventContent}>
 					<Text style={TYPOGRAPHY.title}>{title}</Text>
 					{description && <Text style={TYPOGRAPHY.body}>{description}</Text>}
@@ -47,20 +69,27 @@ export const EventCard = ({
 					{time && <Text style={TYPOGRAPHY.meta}>{time}</Text>}
 					{categoryName && <Text style={TYPOGRAPHY.meta}>{categoryName}</Text>}
 					{location && <Text style={TYPOGRAPHY.meta}>{location}</Text>}
+					{typeof isFree === "boolean" && (
+						<Text style={TYPOGRAPHY.meta}>
+							{isFree ? "Price $0.00" : "Price $20.00"}
+						</Text>
+					)}
 				</View>
-			</Pressable>
+			)}
 
-			<Pressable
-				onPress={favoriteOnPress}
-				style={({ pressed }) => [
-					styles.favoriteButton,
-					pressed && styles.favoriteButtonPressed,
-				]}
-				accessibilityLabel="Add to favorites"
-				accessibilityHint="Marks this event as a favorite"
-			>
-				<Ionicons name={name} size={size} color={color} />
-			</Pressable>
+			{favoriteOnPress && name && size && color && (
+				<Pressable
+					onPress={favoriteOnPress}
+					style={({ pressed }) => [
+						styles.favoriteButton,
+						pressed && styles.favoriteButtonPressed,
+					]}
+					accessibilityLabel="Add to favorites"
+					accessibilityHint="Marks this event as a favorite"
+				>
+					<Ionicons name={name} size={size} color={color} />
+				</Pressable>
+			)}
 		</View>
 	);
 };
